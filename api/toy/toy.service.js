@@ -2,19 +2,14 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 
-const PAGE_SIZE = 8
-
-
 const COLLECTION_NAME = 'toy'
-
-
 
 async function query(filterBy) {
     try {
         const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection(COLLECTION_NAME)
 
-        let { sortBy ,pageIdx } = filterBy
+        let { sortBy } = filterBy
         let sortType = 1
         if (!sortBy || sortBy === 'created') {
             sortBy = 'createdAt'
@@ -37,7 +32,7 @@ async function query(filterBy) {
 //         let { sortBy ,pageIdx } = filterBy
 //         if (sortBy) toys.collation({ locale: 'en' }).sort({ [sortBy]: 1 })
 //         toys = await toys.toArray()
-        
+
 //         if (toys.length > PAGE_SIZE) {
 //             const startIdx = toys.length > (PAGE_SIZE * pageIdx) ? pageIdx * PAGE_SIZE : 0
 //             toys = toys.slice(startIdx, startIdx + PAGE_SIZE)

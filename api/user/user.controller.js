@@ -24,17 +24,6 @@ async function getUsers(req, res) {
     }
 }
 
-// async function deleteUser(req, res) {
-//     try {
-//         logger.debug('Deleting user',)
-//         await userService.remove(req.params.id)
-//         res.send({ msg: 'Deleted successfully' })
-//     } catch (err) {
-//         logger.error('Failed to delete user', err)
-//         res.status(500).send({ err: 'Failed to delete user' })
-//     }
-// }
-
 
 // DELETE (Remove user)
 async function deleteUser(req, res) {
@@ -49,21 +38,6 @@ async function deleteUser(req, res) {
     }
 }
 
-
-// async function deleteUser(req, res) {
-//     try {
-//         logger.debug('Deleting user',)
-//         const deletedCount = await userService.remove(req.params.id)
-//         if (deletedCount === 1) {
-//             res.send({ msg: 'Deleted successfully' })
-//         } else {
-//             res.status(400).send({ err: 'Cannot remove review' })
-//         }
-//     } catch (err) {
-//         logger.error('Failed to delete review', err)
-//         res.status(500).send({ err: 'Failed to delete revfuiew' })
-//     }
-// }
 
 async function updateUser(req, res) {
     try {

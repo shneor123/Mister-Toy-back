@@ -89,7 +89,8 @@ async function add(review) {
             byUserId: ObjectId(review.byUserId),
             aboutToyId: ObjectId(review.aboutToyId),
             content: review.content,
-            rate: review.rate
+            rate: review.rate,
+            imgUrl: review.imgUrl,
         }
         const collection = await dbService.getCollection('review')
         await collection.insertOne(reviewToAdd)
@@ -106,13 +107,6 @@ function _buildCriteria(filterBy) {
     if (filterBy.aboutToyId) criteria.aboutToyId = ObjectId(filterBy.aboutToyId)
     return criteria
 }
-
-// { 
-//     "_id" : ObjectId("6286658c85e4d49c6049b6a6"), 
-//     "byUserId" : ObjectId("628618f9fa4b4e011e71805c"), 
-//     "aboutToyId" : ObjectId("6286658c85e4d49c6049b6a5"), 
-//     "content" : "101010"
-// }
 
 module.exports = {
     query,

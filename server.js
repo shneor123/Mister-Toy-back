@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 const cookieParser = require('cookie-parser')
+const logger = require('./services/logger.service')
 
 const app = express()
 const http = require('http').createServer(app)
@@ -44,13 +45,13 @@ setupSocketAPI(http)
 // Make every server-side-route to match the index.html
 // so when requesting http://localhost:3030/index.html/car/123 it will still respond with
 // our SPA (single page app) (the index.html file) and allow vue/react-router to take it from there
+
+const port = process.env.PORT || 3030
 app.get('/**', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+    res.sendFile(path.join(__dirname, 'public', 'index.html'
+    ))
 })
 
-
-const logger = require('./services/logger.service')
-const port = process.env.PORT || 3030
 http.listen(port, () => {
     logger.info('Server is running on port: ' + port)
 })

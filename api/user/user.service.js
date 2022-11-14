@@ -63,23 +63,6 @@ async function getByUsername(username) {
     }
 }
 
-// async function remove(userId) {
-//     try {
-//         const store = asyncLocalStorage.getStore()
-//         const { loggedinUser } = store
-//         const collection = await dbService.getCollection(COLLECTION_NAME)
-//         // remove only if user is owner/admin
-//         const criteria = { '_id': ObjectId(userId) }
-//         if (loggedinUser.isAdmin) criteria.byUserId = ObjectId(loggedinUser._id)
-//         const { deletedCount } = await collection.deleteOne(criteria)
-//         return deletedCount
-//     } catch (err) {
-//         logger.error(`cannot remove user ${userId}`, err)
-//         throw err
-//     }
-// }
-
-
 // DELETE (Remove user)
 async function remove(userId) {
     try {

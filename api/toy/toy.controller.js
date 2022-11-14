@@ -54,6 +54,7 @@ async function updateToy(req, res) {
     try {
         const toy = req.body;
         const updatedToy = await toyService.update(toy)
+        console.log(updatedToy)
         res.json(updatedToy)
     } catch (err) {
         logger.error('Failed to update toy', err)
