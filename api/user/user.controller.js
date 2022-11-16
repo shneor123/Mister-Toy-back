@@ -15,6 +15,7 @@ async function getUsers(req, res) {
     try {
         const filterBy = {
             txt: req.query?.txt || '',
+            minBalance: +req.query?.minBalance || 0
         }
         const users = await userService.query(filterBy)
         res.send(users)
@@ -29,14 +30,14 @@ async function getUsers(req, res) {
 async function deleteUser(req, res) {
     try {
         logger.debug('Deleting user',)
-        const userId = req.params.id
-        const removedId = await userService.remove(userId)
-        res.send(removedId)
+        await userService.remove(req.params.id)
+        res.send({ msg: 'Deleted successfully' })
     } catch (err) {
-        logger.error('Failed to remove toy', err)
-        res.status(500).send({ err: 'Failed to remove toy' })
+        logger.error('Failed to delete user', err)
+        res.status(500).send({ err: 'Failed to delete user' })
     }
 }
+
 
 
 async function updateUser(req, res) {

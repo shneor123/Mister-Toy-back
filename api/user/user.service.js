@@ -52,6 +52,7 @@ async function getById(userId) {
         throw err
     }
 }
+
 async function getByUsername(username) {
     try {
         const collection = await dbService.getCollection(COLLECTION_NAME)
@@ -63,12 +64,10 @@ async function getByUsername(username) {
     }
 }
 
-// DELETE (Remove user)
 async function remove(userId) {
     try {
         const collection = await dbService.getCollection(COLLECTION_NAME)
         await collection.deleteOne({ '_id': ObjectId(userId) })
-        return userId
     } catch (err) {
         logger.error(`cannot remove user ${userId}`, err)
         throw err
@@ -82,6 +81,7 @@ async function update(user) {
         const userToSave = {
             _id: ObjectId(user._id), // needed for the returnd obj
             fullname: user.fullname,
+            imgUrl: user.imgUrl,
             score: user.score,
         }
         const collection = await dbService.getCollection(COLLECTION_NAME)

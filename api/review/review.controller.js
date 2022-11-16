@@ -2,6 +2,8 @@ const logger = require('../../services/logger.service')
 const toyService = require('../toy/toy.service')
 const authService = require('../auth/auth.service')
 const reviewService = require('./review.service')
+const userService = require('../user/user.service')
+const socketService = require('../../services/socket.service')
 
 async function getReviews(req, res) {
     try {
@@ -56,13 +58,13 @@ async function addReview(req, res) {
         review.byUser = loggedinUser
 
         // User info is saved also in the login-token, update it
-        const loginToken = authService.getLoginToken(loggedinUser)
-        res.cookie('loginToken', loginToken)
+        // const loginToken = authService.getLoginToken(loggedinUser)
+        // res.cookie('loginToken', loginToken)
 
-        const fullUser = await userService.getById(loggedinUser._id)
-        socketService.broadcast({type: 'review-added', data: review, userId: review.byUserId})
-        socketService.emitToUser({type: 'review-about-you', data: review, userId: review.aboutUserId})
-        socketService.emitTo({type: 'user-updated', data: fullUser, label: fullUser._id})
+        // const fullUser = await userService.getById(loggedinUser._id)
+        // socketService.broadcast({ type: 'review-added', data: review, userId: review.byUserId })
+        // socketService.emitToUser({ type: 'review-about-you', data: review, userId: review.aboutToyId })
+        // socketService.emitTo({ type: 'user-updated', data: fullUser, label: fullUser._id })
 
         res.send(review)
     } catch (err) {
@@ -71,6 +73,8 @@ async function addReview(req, res) {
         res.status(500).send({ err: 'Failed to add review' })
     }
 }
+
+
 
 module.exports = {
     getReviews,
