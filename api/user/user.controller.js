@@ -25,8 +25,6 @@ async function getUsers(req, res) {
     }
 }
 
-
-// DELETE (Remove user)
 async function deleteUser(req, res) {
     try {
         logger.debug('Deleting user',)
@@ -37,8 +35,6 @@ async function deleteUser(req, res) {
         res.status(500).send({ err: 'Failed to delete user' })
     }
 }
-
-
 
 async function updateUser(req, res) {
     try {

@@ -15,7 +15,6 @@ async function getReviews(req, res) {
     }
 }
 
-// GET BY ID 
 async function getReviewById(req, res) {
     try {
         const reviewId = req.params.id;
@@ -26,7 +25,6 @@ async function getReviewById(req, res) {
         res.status(500).send({ err: 'Failed to get review' })
     }
 }
-
 
 async function deleteReview(req, res) {
     try {
@@ -42,11 +40,8 @@ async function deleteReview(req, res) {
     }
 }
 
-
 async function addReview(req, res) {
-
     var loggedinUser = authService.validateToken(req.cookies.loginToken)
-
     try {
         var review = req.body
         review.byUserId = loggedinUser._id
@@ -54,7 +49,8 @@ async function addReview(req, res) {
 
         // prepare the updated review for sending out
         review.aboutToy = await toyService.getById(review.toyId)
-        // loggedinUser = await userService.update(loggedinUser) // if user get credit score for adding a review
+        loggedinUser.score += 10
+        loggedinUser = await userService.update(loggedinUser) // if user get credit score for adding a review
         review.byUser = loggedinUser
 
         // User info is saved also in the login-token, update it

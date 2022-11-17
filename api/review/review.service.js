@@ -38,7 +38,7 @@ async function query(filterBy = {}) {
             }
         ]).sort({ _id: -1 }).toArray()
         reviews = reviews.map(review => {
-            review.byUser = { _id: review.byUser._id, username: review.byUser.username, fullname: review.byUser.username }
+            review.byUser = { _id: review.byUser._id, username: review.byUser.username, fullname: review.byUser.fullname }
             review.aboutToy = { _id: review.aboutToy._id, toyName: review.aboutToy.name }
             delete review.byUserId
             delete review.aboutToyId
@@ -65,7 +65,6 @@ async function getById(reviewId) {
     }
 }
 
-
 async function remove(reviewId) {
     try {
         const store = asyncLocalStorage.getStore()
@@ -82,7 +81,6 @@ async function remove(reviewId) {
     }
 }
 
-
 async function add(review) {
     try {
         const reviewToAdd = {
@@ -90,7 +88,6 @@ async function add(review) {
             aboutToyId: ObjectId(review.aboutToyId),
             content: review.content,
             rate: review.rate,
-            imgUrl: review.imgUrl,
         }
         const collection = await dbService.getCollection('review')
         await collection.insertOne(reviewToAdd)
